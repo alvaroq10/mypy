@@ -182,6 +182,20 @@ reveal_type(foo())  # N: Revealed type is "builtins.int"
 [builtins fixtures/ops.pyi]
 [out]
 
+[case testFlippedVersionComparison]
+# flags: --python-version 3.8
+import sys
+	
+if sys.version_info >= (3,8):
+	def foo() -> int: 
+		return 0
+else:
+	def foo() -> str: 
+		return ''
+reveal_type(foo())  # N: Revealed type is "builtins.int"
+[builtins fixtures/ops.pyi]
+[out]
+
 [case testSysVersionInfoNegated_python2]
 import sys
 if not (sys.version_info[0] < 3):
